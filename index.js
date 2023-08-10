@@ -46,11 +46,15 @@ let topMovies = [
 ];
 
 // GET requests
-
 app.get('/', (req, res) => {
   res.send('Welcome to my top 10 movies!');
 });
 
 app.get('/movies', (req, res) => {
   res.json(topMovies);
+});
+
+// listen for requests
+app.listen(8080, () => {
+  console.log('Your app is listening on port 8080.');
 });
