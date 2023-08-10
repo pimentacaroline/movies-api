@@ -1,5 +1,20 @@
 const express = require('express');
+const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
+
 const app = express();
+
+const accessLogStream = fs.createWriteStream(
+	path.join('log.txt'), 
+	{flags: 'a'}
+);
+
+//Serv static file
+app.use(express.static('public'));
+
+// setup the logger
+app.use(morgan('common'));
 
 //My top 10 movies
 let topMovies = [
@@ -54,8 +69,11 @@ app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
 
-//Serving static file
-app.use(express.static('public'));
+// Create error-handling
+app.use((err, req, res, next) => {
+	console.error(err.stack);
+	res.status(500).send('something is not working!');
+});
 
 // listen for requests
 app.listen(8080, () => {
