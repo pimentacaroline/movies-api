@@ -54,6 +54,9 @@ app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
 
+//Serving static file
+app.use(express.static('public'));
+
 // listen for requests
 app.listen(8080, () => {
   console.log('Your app is listening on port 8080.');
