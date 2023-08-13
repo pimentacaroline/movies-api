@@ -34,6 +34,7 @@ let users = [
 }
 ];
 
+
 //movies
 let movies = [
 	{
@@ -52,7 +53,6 @@ let movies = [
     "Featured": false
   }
 ];
-
 
 // CREATE - allow users to register
 app.post('/users', (req, res)=> {
@@ -84,10 +84,10 @@ app.put('/users/:id', (req,res)=> {
 });
 
 //CREATE - Allow users to add a movie to their list of favorites 
-app.post('/users/:id/:movietitle', (req, res)=> {
+app.post('/users/:id/:movieTitle', (req, res)=> {
   const { id, movieTitle} = req.params;
 
-  let user = user.find(user => user.id == id);
+  let user = users.find(user => user.id == id);
 
   if (user) {
     user.favoriteMovies.push(movieTitle);
@@ -98,10 +98,10 @@ app.post('/users/:id/:movietitle', (req, res)=> {
 });
 
 //DELETE - Allow users to remove a movie from their list of favorites
-app.delete('/users/:id/:movietitle', (req, res)=> {
+app.delete('/users/:id/:movieTitle', (req, res)=> {
   const { id, movieTitle} = req.params;
 
-  let user = user.find(user => user.id == id);
+  let user = users.find(user => user.id == id);
 
   if (user) {
     user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle);
@@ -132,7 +132,7 @@ app.get('/movies', (req, res)=>{
 
 //READ - return data about a single movie by name
 app.get('/movies/:title', (req, res)=>{
-  const { title } = re.params;
+  const { title } = req.params;
   const movie = movies.find(movie => movie.Title === title );
 
   if (movie) {
@@ -144,7 +144,7 @@ app.get('/movies/:title', (req, res)=>{
 
 //READ - return data about a genre by name
 app.get('/movies/genre/:genreName', (req, res)=>{
-  const { genreName } = re.params;
+  const { genreName } = req.params;
   const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
 
   if (genre) {
@@ -156,7 +156,7 @@ app.get('/movies/genre/:genreName', (req, res)=>{
 
 //READ - return data about a director by name 
 app.get('/movies/directors/:directorName', (req, res)=>{
-  const { directorName } = re.params;
+  const { directorName } = req.params;
   const director = movies.find(movie => movie.Director.Name === directorName).Director;
 
   if (director) {
@@ -165,11 +165,6 @@ app.get('/movies/directors/:directorName', (req, res)=>{
     res.status(400).send('no such director')
   }
 });
-
-// // GET requests
-// app.get('/', (req, res) => {
-//   res.send('Welcome to my top 10 movies!');
-// });
 
 // Create error-handling
 app.use((err, req, res, next) => {
