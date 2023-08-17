@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<td>Get data about a single movie by title</td>
-					<td>/movies/:title</td>
+					<td>/movies/:Title</td>
 					<td>GET</td>
 					<td>None</td>
 					<td>A JSON object holding data about a single movie, containing description, genre, director, image URL, and
@@ -74,7 +74,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Get data about a genre by title</td>
+					<td>Get data about a genre by genre's name</td>
 					<td>/movies/genre/:genreName</td>
 					<td>GET</td>
 					<td>none</td>
@@ -88,11 +88,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Get data about a director by name</td>
+					<td>Get data about a director by director's name</td>
 					<td>/movies/directors/:directorName</td>
 					<td>GET</td>
 					<td>none</td>
-					<td>A JSON object holding an array with all directors.</td>
+					<td>A JSON object holding data about a director. Example:
+						<code>
+						{
+							"Name": "Wes Anderson",
+							"Bio": "Wesley Wales Anderson is an American filmmaker. His films are known for their eccentricity, unique visual and narrative styles.",
+							"Birth": "1969-05-01T00:00:00.000Z"
+						}
+					</code>
+					</td>
 				</tr>
 				<tr>
 					<td>Add a new user</td>
@@ -101,60 +109,96 @@
 					<td>A JSON object holding user data, structured like this:
 						<code>
 						{
-							name: "Kim",
-							favoriteMovies: []
+							"Username": "Kim",
+							"Password": "ula36ula",
+							"Email": "kim.namura@fakeema.il",
+							"Birthday": "1984-07-18"
 						}
 					</code>
 					</td>
-					<td>A JSON object holding user data plus an ID:
+					<td>A JSON object holding user data plus an ID and a array for placing favorite movies:
 						<code>
 						{
-							id: 1,
-							name: "Kim",
-							favoriteMovies: []
-						}
+							"Username": "Kim",
+							"Password": "ula36ula",
+							"Email": "kim.namura@fakeema.il",
+							"Birthday": "1984-07-18T00:00:00.000Z",
+							"FavoriteMovies": [],
+							"_id": "64de58a81b1e8dfa2e81f5b9",
+							"__v": 0
+					}
 					</code>
 					</td>
 				</tr>
 				<tr>
-					<td>Update user username</td>
-					<td>/users/:id</td>
+					<td>Update user info</td>
+					<td>/users/:Username</td>
 					<td>PUT</td>
-					<td>A JSON object holding user data, structured like this:
+					<td>A JSON object holding the user info that should be changed. It should contain at least one of the following key/value pairs:
 						<code>
 						{
-							name: "Kim",
-							favoriteMovies: []
+							"Username": String,
+							"Password": String,
+							"Email": String,
+							"Birthday": Data
 						}
 					</code>
 					</td>
-					<td>A JSON object holding user data plus an ID:
+					<td>A JSON object holding all user info with all key/values pair updated:
 						<code>
 						{
-							id: 1,
-							name: "Kim",
-							favoriteMovies: []
-						}
+							"Username": "Kim-Sophie",
+							"Password": "ula36ula",
+							"Email": "kim.namura@fakeema.il",
+							"Birthday": "1984-07-18T00:00:00.000Z",
+							"FavoriteMovies": [],
+							"_id": "64de58a81b1e8dfa2e81f5b9",
+							"__v": 0
+					}
 					</code>
 					</td>
 				</tr>
 				<tr>
 					<td>Add a movie to user favorite list</td>
-					<td>/users/:id/:movietitle</td>
+					<td>/users/:Username/movies/:movieID</td>
 					<td>POST</td>
 					<td>None</td>
-					<td>A text message indicating whether a movie was successfully added to the favorite list.</td>
+					<td>A JSON object holding all user info with all key/values pair updated:
+						<code>
+						{
+							"Username": "Kim-Sophie",
+							"Password": "ula36ula",
+							"Email": "kim.namura@fakeema.il",
+							"Birthday": "1984-07-18T00:00:00.000Z",
+							"FavoriteMovies": ["64dcd768591669f639751ff8"],
+							"_id": "64de58a81b1e8dfa2e81f5b9",
+							"__v": 0
+					}
+					</code>
+					</td>
 				</tr>
 				<tr>
 					<td>Remove a movie from user favorite list</td>
-					<td>/users/:id/:movieTitle</td>
+					<td>/users/:Username/movies/:movieID</td>
 					<td>DELETE</td>
 					<td>None</td>
-					<td>A text message indicating whether a movie was successfully removed from the favorite list.</td>
+					<td>A JSON object holding all user info with all key/values pair updated:
+						<code>
+						{
+							"Username": "Kim-Sophie",
+							"Password": "ula36ula",
+							"Email": "kim.namura@fakeema.il",
+							"Birthday": "1984-07-18T00:00:00.000Z",
+							"FavoriteMovies": [],
+							"_id": "64de58a81b1e8dfa2e81f5b9",
+							"__v": 0
+					}
+					</code>
+					</td>
 				</tr>
 				<tr>
 					<td>Delete user registration</td>
-					<td>/users/:id</td>
+					<td>/users/:Username</td>
 					<td>DELETE</td>
 					<td>None</td>
 					<td>A text message indicating whether a user was successfully removed.</td>
