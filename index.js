@@ -4,8 +4,14 @@ const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
 
+const Movies = Models.Movie;
+const Users = Models.User;
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/cpdb', {useNewUrlParser:true, useUnifiedTopology:true});
 
 app.use(bodyParser.json());
 
