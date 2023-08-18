@@ -24,40 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('common'));
 
-//users
-let users = [
-{
-  id: 1,
-  name: "Kim",
-  favoriteMovies: []
-},
-{
-  id: 2,
-  name: "Joe",
-  favoriteMovies: ["The French Dispatch"] 
-}
-];
-
-
-//movies
-let movies = [
-	{
-    "Title": "The French Dispatch",
-    "Description": "A love letter to journalists set in an outpost of an American newspaper in a fictional twentieth century French city that brings to life a collection of stories published in \"The French Dispatch Magazine\".",
-    "Genre": {
-      "Name": "Comedy",
-      "Description": "Is a genre of fiction that consists of discourses or works intended to be humorous or amusing by inducing laughter."
-    },
-    "Director": {
-      "Name": "Wes Anderson",
-      "Bio": "Wesley Wales Anderson was born in Houston, Texas. During childhood, Anderson also began writing plays and making super-8 movies. Anderson attended the University of Texas in Austin, where he majored in philosophy. It was there that he met Owen Wilson. They became friends and began making short films, some of which aired on a local cable-access station.",
-      "Birth": 1969.0
-    },
-    "ImageURL": " ",
-    "Featured": false
-  }
-];
-
 // #1 Return a list of ALL movies
 app.get('/movies', async (req, res) => {
   await Movies.find()
