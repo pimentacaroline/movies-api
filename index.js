@@ -24,6 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('common'));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 // #1 Return a list of ALL movies
 app.get('/movies', (req, res) => {
   Movies.find()
