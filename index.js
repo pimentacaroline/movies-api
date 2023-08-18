@@ -25,10 +25,10 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 
 // #1 Return a list of ALL movies
-app.get('/movies', async (req, res) => {
-  await Movies.find()
+app.get('/movies', (req, res) => {
+  Movies.find()
     .then((movies) => {
-      res.status(201).json(movies);
+      res.status(200).json(movies);
     })
     .catch((err) => {
       console.error(err);
@@ -37,10 +37,10 @@ app.get('/movies', async (req, res) => {
 });
 
 // #2 Return data about a single movie by title 
-app.get('/movies/:Title', async (req, res) => {
-  await Movies.findOne({Title: req.params.Title})
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({Title: req.params.Title})
     .then((movie) => {
-      res.json(movie);
+      res.status(200).json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -49,8 +49,8 @@ app.get('/movies/:Title', async (req, res) => {
 });
 
 // # 3 Return data about a genre (description) by name
-app.get('/movies/genre/:genreName', async (req, res) => {
-  await Movies.findOne({'Genre.Name':req.params.genreName})
+app.get('/movies/genre/:genreName', (req, res) => {
+  Movies.findOne({'Genre.Name':req.params.genreName})
     .then((movie) => {
       res.status(200).json(movie.Genre);
     })
@@ -61,8 +61,8 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 // #4 Return data about a director (bio, birth year, death year) by name
-app.get('/movies/directors/:directorName', async (req, res) => {
-  await Movies.findOne({'Director.Name':req.params.directorName})
+app.get('/movies/directors/:directorName', (req, res) => {
+  Movies.findOne({'Director.Name':req.params.directorName})
     .then((movie) => {
       res.status(200).json(movie.Director);
     })
@@ -74,8 +74,8 @@ app.get('/movies/directors/:directorName', async (req, res) => {
 
 // #5 Allow new users to register
 
-app.post('/users', async (req, res) => {
-  await Users.findOne({ Username: req.body.Username })
+app.post('/users', (req, res) => {
+  Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
         return res.status(400).send(req.body.Username + 'already exists');
@@ -101,8 +101,8 @@ app.post('/users', async (req, res) => {
 });
 
 // #6 Allow users to update their user info (username, password, email, date of birth)
-app.put('/users/:Username', async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
       Password: req.body.Password,
