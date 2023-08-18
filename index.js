@@ -77,7 +77,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 });
 
 // #5 Allow new users to register
-app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -105,6 +105,9 @@ app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) 
 
 // #6 Allow users to update their user info (username, password, email, date of birth)
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  if(req.user.Username !== req.params.Username){
+    return res.status(400).send('Permission denied');
+  }
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
