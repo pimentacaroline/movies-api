@@ -7,6 +7,7 @@ const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const cors = require('cors');
+const {check, validationResult} = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -79,8 +80,20 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 });
 
 // #5 Allow new users to register
-app.post('/users', (req, res) => {
+app.post('/users', [
+  check('Username', 'Username is required').isLength({min:5}),
+  check('Username', 'Username contains non alphanumeric chacters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
+  
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
+
   let hashedPassword = Users.hashPassword(req.body.Password);
+
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -107,21 +120,36 @@ app.post('/users', (req, res) => {
 });
 
 // #6 Allow users to update their user info (username, password, email, date of birth)
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-  if(req.user.Username !== req.params.Username){
-    return res.status(400).send('Permission denied');
-  }
-  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-    {
-      Username: req.body.Username,
-      Password: req.body.Password,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
+app.put('/users/:Username', [
+  check('Username', 'Username is required').isLength({min:5}),
+  check('Username', 'Username contains non alphanumeric chacters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+  ], 
+  passport.authenticate('jwt', { session: false }), 
+  (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
     }
-  },
-  { new: true }) 
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    
+    if(req.user.Username !== req.params.Username){
+      return res.status(400).send('Permission denied.');
+    }
+
+    Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+      {
+        Username: req.body.Username,
+        Password: hashedPassword,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
+      }
+    },
+    { new: true }) 
     .then(updatedUser => {
-      res.json(updatedUser);
+        res.json(updatedUser);
     })
     .catch(err => {
       console.error(err);
