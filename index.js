@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const cors = require('cors');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('common'));
+app.use(cors());
 
 let auth = require('./auth')(app);
 const passport = require('passport');
