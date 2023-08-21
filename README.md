@@ -12,18 +12,17 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [myIMDB - API] <a name="about-project"></a>
+# 📖 myIMDB - API <a name="about-project"></a>
 
-**[myIMDB - API]** is the server-side component of a “movies” web application. This API will provide users with information about different
+** myIMDB - API** is the server-side component of a “movies” web application. This API will provide users with information about different
 movies, directors, and genres.
 
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
 
-> The API is a Node.js and Express application that use REST architecture. The database was built using MongoDB and the business logic was modeled with Mongoose.
+The API is a Node.js and Express application that use REST architecture. The database was built using MongoDB and the business logic was modeled with Mongoose.
 
-<details>
 <details>
   <summary>Server</summary>
   <ul>
@@ -44,31 +43,31 @@ movies, directors, and genres.
 
 The app allows users to receive information on movies, directors, and genres and to save their favorite movies.
 
-- **[Return information about Movies]**
-- **[User registration]**
-- **[Bookmark favorite movies]**
+- **Return information about Movies**
+- **User registration**
+- **Bookmark favorite movies**
 
 <!-- LIVE DEMO -->
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://google.com)
+- [Live Demo Link](https://)
 
 
 <!-- AUTHOR -->
 
 ## 👥 Author <a name="authors"></a>
 
-> This was a solo project guided by tutors and Mentors from <a href="https://careerfoundry.com/en/courses/become-a-web-developer/">CareerFoundry.</a>
-
 **Caroline Pimenta**
 
 - GitHub: [@pimentacaroline](https://github.com/pimentacaroline)
 - Website: https://carolinepimenta.com
 
+This was a solo project guided by tutors and Mentors from <a href="https://careerfoundry.com/en/courses/become-a-web-developer/">CareerFoundry.</a>
+
 <!-- FUTURE FEATURES -->
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-> Coming next: client side. I will soon create the frontend that users will interact with to 
+Coming up next: client side. I will soon create the frontend that users will interact with to 
 
