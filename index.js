@@ -32,6 +32,10 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+app.get('/', (req, res) => {
+  res.send('Welcome to my movie app.');
+});
+
 // #1 Return a list of ALL movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
