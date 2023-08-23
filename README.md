@@ -12,9 +12,9 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 myIMDB - API <a name="about-project"></a>
+# 📖 movies-api <a name="about-project"></a>
 
-** myIMDB - API** is the server-side component of a “movies” web application. This API will provide users with information about different
+**movies-api** is the server-side component of a “movies” web application. This API will provide users with information about different
 movies, directors, and genres.
 
 ## 🛠 Built With <a name="built-with"></a>
