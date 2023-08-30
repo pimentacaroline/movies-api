@@ -33,7 +33,7 @@ const passport = require('passport');
 require('./passport');
 
 app.get('/', (req, res) => {
-  res.send('Welcome to my movie app.');
+  res.send('Testing my welcome page');
 });
 
 // #1 Return a list of ALL movies
